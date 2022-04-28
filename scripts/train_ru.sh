@@ -26,33 +26,33 @@ test_src=$DATA_DIR/test.src
 test_trg=$DATA_DIR/test.trg
 
 cpu_num=`grep -c ^processor /proc/cpuinfo`
-
-if [ -e $PROCESSED_DIR/bin ]; then
-    echo Process file already exists
-else
-    mkdir -p $PROCESSED_DIR/bin
-
-    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $train_src > $PROCESSED_DIR/train.src
-    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $train_trg > $PROCESSED_DIR/train.trg
-    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $valid_src > $PROCESSED_DIR/valid.src
-    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $valid_trg > $PROCESSED_DIR/valid.trg
-    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $test_src > $PROCESSED_DIR/test.src
-    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $test_trg > $PROCESSED_DIR/test.trg
-
-    cp $train_src $PROCESSED_DIR/train.bert.src
-    cp $valid_src $PROCESSED_DIR/valid.bert.src
-    cp $test_src $PROCESSED_DIR/test.bert.src
-
-    python $FAIRSEQ_DIR/preprocess.py --source-lang ru --target-lang ru \
-        --trainpref $PROCESSED_DIR/train \
-        --validpref $PROCESSED_DIR/valid \
-        --testpref $PROCESSED_DIR/test \
-        --destdir $PROCESSED_DIR/bin \
-        --srcdict $VOCAB_DIR/dict_src_8000.txt \
-        --tgtdict $VOCAB_DIR/dict_trg_8000.txt \
-        --workers $cpu_num \
-        --bert-model-name $bert_type
-fi
+#
+#if [ -e $PROCESSED_DIR/bin ]; then
+#    echo Process file already exists
+#else
+#    mkdir -p $PROCESSED_DIR/bin
+#
+#    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $train_src > $PROCESSED_DIR/train.src
+#    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $train_trg > $PROCESSED_DIR/train.trg
+#    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $valid_src > $PROCESSED_DIR/valid.src
+#    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $valid_trg > $PROCESSED_DIR/valid.trg
+#    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $test_src > $PROCESSED_DIR/test.src
+#    $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $test_trg > $PROCESSED_DIR/test.trg
+#
+#    cp $train_src $PROCESSED_DIR/train.bert.src
+#    cp $valid_src $PROCESSED_DIR/valid.bert.src
+#    cp $test_src $PROCESSED_DIR/test.bert.src
+#
+#    python $FAIRSEQ_DIR/preprocess.py --source-lang ru --target-lang ru \
+#        --trainpref $PROCESSED_DIR/train \
+#        --validpref $PROCESSED_DIR/valid \
+#        --testpref $PROCESSED_DIR/test \
+#        --destdir $PROCESSED_DIR/bin \
+#        --srcdict $VOCAB_DIR/dict_src_8000.txt \
+#        --tgtdict $VOCAB_DIR/dict_trg_8000.txt \
+#        --workers $cpu_num \
+#        --bert-model-name $bert_type
+#fi
 
 
 #cp $pre_trained_model $MODEL_DIR/pre_trained_model.pt
