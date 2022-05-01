@@ -15,7 +15,7 @@ DATA_DIR=/scratch/project_2002016/datasets/data-gec
 VOCAB_DIR=$DATA_DIR/vocab
 
 PROCESSED_DIR=$DATA_DIR/process
-MODEL_DIR=$BASE_DIR/gec_model
+MODEL_DIR=/scratch/project_2002016/gec_model
 
 
 train_src=$DATA_DIR/train.src

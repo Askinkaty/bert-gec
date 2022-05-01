@@ -15,9 +15,9 @@
 
 module load gcc/8.3.0 cuda/10.1.168
 
-export DIR=/projappl/project_2002016/bert-gec
+export DIR=/projappl/project_2002016/bert-gec/scripts
 cd $DIR
 
-conda activate vernet
+conda activate bert-gec
 
 srun ./train_ru.sh
