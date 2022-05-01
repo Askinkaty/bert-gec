@@ -16,9 +16,10 @@ PROCESSED_DIR=$DATA_DIR/process
 MODEL_DIR=$BASE_DIR/gec_model
 
 
+$SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $input > $MODEL_DIR/test.bpe.src
 
-python -u detok.py $input $PROCESSED_DIR/test.bert.src
-paste -d "\n" $PROCESSED_DIR/test.src $PROCESSED_DIR/test.bert.src > $PROCESSED_DIR/test.cat.src
+python -u detok.py $input $MODEL_DIR/test.bert.src
+paste -d "\n" $PROCESSED_DIR/test.src $MODEL_DIR/test.bert.src > $MODEL_DIR/test.cat.src
 
 echo Generating...
 CUDA_VISIBLE_DEVICES=$gpu python -u ${FAIRSEQ_DIR}/interactive.py $PREPROCESS \
@@ -33,7 +34,7 @@ CUDA_VISIBLE_DEVICES=$gpu python -u ${FAIRSEQ_DIR}/interactive.py $PREPROCESS \
     --log-format simple \
     --remove-bpe \
     --bert-model-name $bert_type \
-    < $PROCESSED_DIR/test.cat.src > $PROCESSED_DIR/test.nbest.tok
+    < $MODEL_DIR/test.cat.src > $MODEL_DIR/test.nbest.tok
 
-cat $PROCESSED_DIR/test.nbest.tok | grep "^H"  | python -c "import sys; x = sys.stdin.readlines(); x = ' '.join([ x[i] for i in range(len(x)) if (i % ${beam} == 0) ]); print(x)" | cut -f3 > $PROCESSED_DIR/test.best.tok
-sed -i '$d' $PROCESSED_DIR/test.best.tok
+cat $MODEL_DIR/test.nbest.tok | grep "^H"  | python -c "import sys; x = sys.stdin.readlines(); x = ' '.join([ x[i] for i in range(len(x)) if (i % ${beam} == 0) ]); print(x)" | cut -f3 > $MODEL_DIR/test.best.tok
+sed -i '$d' $MODEL_DIR/test.best.tok
