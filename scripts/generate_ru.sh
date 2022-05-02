@@ -19,7 +19,7 @@ MODEL_DIR=$BASE_DIR/gec_model
 $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $input > $MODEL_DIR/test.bpe.src
 
 python -u detok.py $input $MODEL_DIR/test.bert.src
-paste -d "\n" $PROCESSED_DIR/test.src $MODEL_DIR/test.bert.src > $MODEL_DIR/test.cat.src
+paste -d "\n" $MODEL_DIR/test.bpe.src $MODEL_DIR/test.bert.src > $MODEL_DIR/test.cat.src
 
 echo Generating...
 CUDA_VISIBLE_DEVICES=$gpu python -u ${FAIRSEQ_DIR}/interactive.py $PREPROCESS \
