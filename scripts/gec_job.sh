@@ -21,4 +21,4 @@ cd $DIR
 conda activate bert-gec
 
 #srun ./train_ru.sh
-srun ./generate_ru.sh /scratch/project_2002016/datasets/data-gec/process gpu
+srun ./generate_ru.sh /scratch/project_2002016/datasets/data-gec/test.src gpu
