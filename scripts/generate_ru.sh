@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+input=$1
+gpu=$2
+beam=5
+
 bert_type=bert-base-russian-cased
 seed=2222
 BASE_DIR=/projappl/project_2002016
@@ -13,7 +17,7 @@ DATA_DIR=/scratch/project_2002016/datasets/data-gec
 VOCAB_DIR=$DATA_DIR/vocab
 
 PROCESSED_DIR=$DATA_DIR/process
-MODEL_DIR=$BASE_DIR/gec_model
+MODEL_DIR=/scratch/project_2002016/gec_model
 
 
 $SUBWORD_NMT/apply_bpe.py -c $BPE_MODEL_DIR/codes.txt < $input > $MODEL_DIR/test.bpe.src
@@ -22,7 +26,7 @@ python -u detok.py $input $MODEL_DIR/test.bert.src
 paste -d "\n" $MODEL_DIR/test.bpe.src $MODEL_DIR/test.bert.src > $MODEL_DIR/test.cat.src
 
 echo Generating...
-CUDA_VISIBLE_DEVICES=$gpu python -u ${FAIRSEQ_DIR}/interactive.py $PREPROCESS \
+CUDA_VISIBLE_DEVICES=$gpu python -u ${FAIRSEQ_DIR}/interactive.py $MODEL_DIR \
     --path ${MODEL_DIR}/checkpoint_best.pt \
     --beam ${beam} \
     --nbest ${beam} \
