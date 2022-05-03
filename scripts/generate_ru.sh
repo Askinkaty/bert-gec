@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+input=$1
+gpu=$2
+beam=5
 
 bert_type=bert-base-russian-cased
 seed=2222
