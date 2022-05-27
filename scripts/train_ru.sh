@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-bert_type=bert-base-russian-cased
+#bert_type=bert-base-russian-cased
 seed=2222
 BASE_DIR=/projappl/project_2002016
-#bert_model=$BASE_DIR/gramcor/bert-pretraned/rubert_cased_L-12_H-768_A-12_pt
+bert_model=$BASE_DIR/gramcor/bert-pretraned/rubert_cased_L-12_H-768_A-12_pt
 #bert_model=/scratch/project_2002016/bert_er_out_lang8_rulec/checkpoint-2100
 
 SUBWORD_NMT=$BASE_DIR/subword-nmt
