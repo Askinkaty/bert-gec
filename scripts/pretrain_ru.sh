@@ -35,7 +35,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
     --ddp-backend c10d \
     --validate-interval 1 \
 #    --patience 10 \
-    --save-interval 2 --keep-interval-updates 10 \
+#    --save-interval 2 --keep-interval-updates 10 \
     --adam-betas '(0.9,0.98)' \
     --log-format json \
     --reset-optimizer \
@@ -49,4 +49,4 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
 #    --eval-bleu-remove-bpe \
 #    --eval-bleu-print-samples \
 #    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
-    --log-interval=10 2>&1 | tee -a $MODEL_DIR/training.log \
+#    --log-interval=10 2>&1 | tee -a $MODEL_DIR/training.log \
