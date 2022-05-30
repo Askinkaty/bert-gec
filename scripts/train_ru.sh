@@ -17,7 +17,7 @@ VOCAB_DIR=$DATA_DIR/vocab
 PROCESSED_DIR=$DATA_DIR/process
 MODEL_DIR=/scratch/project_2002016/gec_model
 
-
+PRETRAINED=/scratch/project_2002016/gec_model_pretrained_2
 train_src=$DATA_DIR/train.src
 train_trg=$DATA_DIR/train.trg
 valid_src=$DATA_DIR/valid.src
@@ -70,6 +70,8 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
     --lr-shrink 0.7 \
     --update-freq 128 \
     --min-loss-scale=0.000001 \
+    --warmup-from-nmt \
+    --warmup-nmt-file $PRETRAINED/checkpoint_last.pt \
     --bert-model-name $bert_model \
     --encoder-bert-dropout \
     --encoder-bert-dropout-ratio 0.3 \
