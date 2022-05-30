@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-FAIRSEQ_DIR=/projappl/project_2002016/fairseq/fairseq_cli
-#FAIRSEQ_DIR=/projappl/project_2002016/bert-nmt
+#FAIRSEQ_DIR=/projappl/project_2002016/fairseq/fairseq_cli
+FAIRSEQ_DIR=$BASE_DIR/bert-nmt
 
 DATA_DIR=/scratch/project_2002016/datasets/data-gec
 PROCESSED_DIR=$DATA_DIR/process/pseudodata
@@ -11,7 +11,7 @@ MODEL_DIR=/scratch/project_2002016/gec_model_pretrained_2
 CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin \
     --save-dir $MODEL_DIR \
     --seed 23 \
-    --arch transformer_vaswani_wmt_en_de_big \
+    --arch transformer_s2_vaswani_wmt_en_de_big \
     --weight-decay 0.0001 \
     --max-tokens 10000 \
     --optimizer adam \
@@ -19,7 +19,6 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
     --fp16 \
     --fp16-scale-tolerance=0.25 \
     --min-loss-scale=0.5 \
-    #--min-lr 1e-09 \
     -s src \
     -t trg \
     --dropout 0.3 \
