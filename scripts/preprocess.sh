@@ -2,7 +2,9 @@
 
 
 #FAIRSEQ_DIR=$BASE_DIR/bert-nmt
-FAIRSEQ_DIR=/projappl/project_2002016/fairseq/fairseq_cli
+#FAIRSEQ_DIR=/projappl/project_2002016/fairseq/fairseq_cli
+BASE_DIR=/projappl/project_2002016
+FAIRSEQ_DIR=$BASE_DIR/bert-nmt
 DATA_DIR=/scratch/project_2002016/datasets/data-gec
 
 
