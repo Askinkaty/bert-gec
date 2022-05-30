@@ -7,8 +7,9 @@ bert_model=$BASE_DIR/gramcor/bert-pretraned/rubert_cased_L-12_H-768_A-12_pt
 #bert_model=/scratch/project_2002016/bert_er_out_lang8_rulec/checkpoint-2100
 
 SUBWORD_NMT=$BASE_DIR/subword-nmt
-FAIRSEQ_DIR=$BASE_DIR/bert-nmt
+#FAIRSEQ_DIR=$BASE_DIR/bert-nmt
 
+FAIRSEQ_DIR=/projappl/project_2002016/fairseq/fairseq_cli
 
 BPE_MODEL_DIR=$BASE_DIR/bpe
 DATA_DIR=/scratch/project_2002016/datasets/data-gec
@@ -62,12 +63,11 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
     --arch transformer_vaswani_wmt_en_de_big \
     --max-tokens 10000 \
     --optimizer adam \
-    --lr 0.00003 \
+    --lr 0.00001 \
     -s src \
     -t trg \
     --dropout 0.3 \
-    --lr-scheduler reduce_lr_on_plateau \
-    --lr-shrink 0.7 \
+    --lr-scheduler inverse_sqrt \
     --update-freq 128 \
     --min-loss-scale=0.000001 \
     --warmup-from-nmt \
