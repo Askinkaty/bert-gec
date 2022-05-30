@@ -1,26 +1,29 @@
 #!/usr/bin/env bash
 
-FAIRSEQ_DIR=$BASE_DIR/bert-nmt
+FAIRSEQ_DIR=/projappl/project_2002016/fairseq/fairseq_cli
+#FAIRSEQ_DIR=/projappl/project_2002016/bert-nmt
 
 DATA_DIR=/scratch/project_2002016/datasets/data-gec
 PROCESSED_DIR=$DATA_DIR/process/pseudodata
-MODEL_DIR=/scratch/project_2002016/gec_model_pretrained
+MODEL_DIR=/scratch/project_2002016/gec_model_pretrained_2
 
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin \
     --save-dir $MODEL_DIR \
-    --arch transformer_iwslt_de_en \
+    --seed 23 \
+    --arch transformer_vaswani_wmt_en_de_big \
     --weight-decay 0.0001 \
-    --max-tokens 4096 \
+    --max-tokens 10000 \
     --optimizer adam \
-    --lr 0.001 \
-    --min-lr '1e-09' \
+    --lr 0.00001 \
+    --fp16 \
+    --fp16-scale-tolerance=0.25 \
+    --min-loss-scale=0.5 \
+    #--min-lr 1e-09 \
     -s src \
     -t trg \
     --dropout 0.3 \
     --lr-scheduler inverse_sqrt \
-    --lr-shrink 0.7 \
-    --min-lr 1e-06 \
     --clip-norm 0.1 \
     --criterion label_smoothed_cross_entropy \
     --label-smoothing 0.1 \
@@ -32,11 +35,10 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
     --ddp-backend c10d \
     --validate-interval 1 --patience 10 --save-interval 2 --keep-interval-updates 10 \
     --adam-betas '(0.9,0.98)' \
-    --log-format simple \
+    --log-format json \
     --reset-optimizer \
     --reset-meters \
     --reset-dataloader \
-    --seed $seed \
     --share-all-embeddings \
     --task translation \
     --eval-bleu \
@@ -44,4 +46,5 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
     --eval-bleu-detok moses \
     --eval-bleu-remove-bpe \
     --eval-bleu-print-samples \
-    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric
+    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
+    --log-interval=10 2>&1 | tee -a $MODEL_DIR/training.log \

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 
-FAIRSEQ_DIR=$BASE_DIR/bert-nmt
-
+#FAIRSEQ_DIR=$BASE_DIR/bert-nmt
+FAIRSEQ_DIR=/projappl/project_2002016/fairseq/fairseq_cli
 DATA_DIR=/scratch/project_2002016/datasets/data-gec
-VOCAB_DIR=$DATA_DIR/vocab
+
 
 PROCESSED_DIR=$DATA_DIR/process/pseudodata
 
@@ -17,8 +17,8 @@ python $FAIRSEQ_DIR/preprocess.py --source-lang src --target-lang trg \
     --validpref $PROCESSED_DIR/valid \
     --testpref $PROCESSED_DIR/test \
     --destdir $PROCESSED_DIR/bin \
-    --srcdict $VOCAB_DIR/dict.src \
-    --tgtdict $VOCAB_DIR/dict.trg \
+    --srcdict $PROCESSED_DIR/dict.src \
+    --tgtdict $PROCESSED_DIR/dict.trg \
     --workers $cpu_num \
 
 
