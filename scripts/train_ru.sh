@@ -7,7 +7,7 @@ bert_model=$BASE_DIR/gramcor/bert-pretraned/rubert_cased_L-12_H-768_A-12_pt
 #bert_model=/scratch/project_2002016/bert_er_out_lang8_rulec/checkpoint-2100
 
 SUBWORD_NMT=$BASE_DIR/subword-nmt
-FAIRSEQ_DIR=$BASE_DIR/bert-nmt
+FAIRSEQ_DIR=$BASE_DIR/bert-nmt/fairseq_cli
 
 
 BPE_MODEL_DIR=$BASE_DIR/bpe
