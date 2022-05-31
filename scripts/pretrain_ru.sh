@@ -7,6 +7,7 @@ FAIRSEQ_DIR=$BASE_DIR/bert-nmt
 DATA_DIR=/scratch/project_2002016/datasets/data-gec
 PROCESSED_DIR=$DATA_DIR/process/pseudodata
 MODEL_DIR=/scratch/project_2002016/gec_model_pretrained_2
+bert_model=$BASE_DIR/gramcor/bert-pretraned/rubert_cased_L-12_H-768_A-12_pt
 
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin \
@@ -41,6 +42,6 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR/bin 
     --reset-optimizer \
     --reset-meters \
     --reset-dataloader \
-    --share-all-embeddings \
+    --bert-model-name $bert_model \
     --task translation \
     --log-interval=10 2>&1 | tee -a $MODEL_DIR/training.log \
