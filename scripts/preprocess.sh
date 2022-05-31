@@ -14,10 +14,21 @@ PROCESSED_DIR=$DATA_DIR/process/pseudodata
 
 cpu_num=`grep -c ^processor /proc/cpuinfo`
 
+
+train_src=$PROCESSED_DIR/train.src
+train_trg=$PROCESSED_DIR/train.trg
+valid_src=$PROCESSED_DIR/valid.src
+valid_trg=$PROCESSED_DIR/valid.trg
+test_src=$PROCESSED_DIR/test.src
+test_trg=$PROCESSED_DIR/test.trg
+
 cd PROCESSED_DIR
 cp $train_src $PROCESSED_DIR/train.bert.src
 cp $valid_src $PROCESSED_DIR/valid.bert.src
 cp $test_src $PROCESSED_DIR/test.bert.src
+cp $train_trg $PROCESSED_DIR/train.bert.trg
+cp $valid_trg $PROCESSED_DIR/valid.bert.trg
+cp $test_trg $PROCESSED_DIR/test.bert.trg
 
 python $FAIRSEQ_DIR/preprocess.py --source-lang src --target-lang trg \
     --trainpref $PROCESSED_DIR/train \
